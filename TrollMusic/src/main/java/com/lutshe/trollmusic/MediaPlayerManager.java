@@ -3,6 +3,8 @@ package com.lutshe.trollmusic;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import java.io.IOException;
+
 /**
  * Created by Arsen Adzhiametov on 28.10.2015
  */
@@ -24,14 +26,20 @@ public class MediaPlayerManager {
         return mediaPlayerManager;
     }
 
-    public void play(int rawResourceId) {
+    public void play(String pathToAudio) {
         if (mp != null && mp.isPlaying()) {
             mp.stop();
             mp.reset();
             mp.release();
             mp = null;
         }
-        mp = MediaPlayer.create(context, rawResourceId);
+        mp = new MediaPlayer();
+        try {
+            mp.setDataSource(pathToAudio);
+            mp.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -43,4 +51,12 @@ public class MediaPlayerManager {
         mp.start();
     }
 
+    public void stop() {
+        if (mp != null && mp.isPlaying()) {
+            mp.stop();
+            mp.reset();
+            mp.release();
+            mp = null;
+        }
+    }
 }

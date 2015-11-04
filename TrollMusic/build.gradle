@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.1'
+        classpath 'com.android.tools.build:gradle:0.9.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "com.lutshe.trollmusic"
-        minSdkVersion 22
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

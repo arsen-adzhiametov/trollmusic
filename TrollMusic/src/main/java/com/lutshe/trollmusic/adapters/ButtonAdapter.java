@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.lutshe.trollmusic.R;
+import com.lutshe.trollmusic.FileSystemAudioManager;
 import com.lutshe.trollmusic.exceptions.NotImplementedException;
 import com.lutshe.trollmusic.listeners.OnButtonClickListener;
 
@@ -14,14 +14,16 @@ import com.lutshe.trollmusic.listeners.OnButtonClickListener;
 public class ButtonAdapter extends BaseAdapter {
 
     private Context context;
+    private FileSystemAudioManager fileSystemAudioManager;
 
     public ButtonAdapter(Context context) {
         this.context = context;
+        fileSystemAudioManager = new FileSystemAudioManager();
     }
 
     @Override
     public int getCount() {
-        return 20;
+        return fileSystemAudioManager.getAudioCount();
     }
 
     @Override
@@ -39,9 +41,9 @@ public class ButtonAdapter extends BaseAdapter {
         Button button = new Button(context);
         button.setLayoutParams(new GridView.LayoutParams(250, 150));
         button.setPadding(8, 8, 8, 8);
-        button.setText("Button " + position);
+        button.setText(fileSystemAudioManager.getAudioNameInPosition(position));
         button.setId(position);
-        button.setOnClickListener(new OnButtonClickListener(context, R.raw.teenage));
+        button.setOnClickListener(new OnButtonClickListener(context, fileSystemAudioManager.getAudionInPosition(position)));
         return button;
     }
 }
