@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">TrollMusic</string>
+    <string name="app_name">Karl</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="add_files_text">Add .mp3 audio files in /trollmusic directory of your internal sdcard</string>
-    <string name="stop_button_text">Stop! Stop, Karl!</string>
+    <string name="stop_button_text">Stop, Karl! Please!</string>
 </resources>

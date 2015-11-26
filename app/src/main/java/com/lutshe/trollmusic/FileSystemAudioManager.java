@@ -37,6 +37,8 @@ public class FileSystemAudioManager {
     public String getAudioNameInPosition(int position) {
         File file = new File(pathToAudioFolder);
         File[] list = file.listFiles();
-        return list[position].getName().substring(0,7);
+        String name = list[position].getName();
+        String formatted = name.substring(0, name.indexOf(".")).replace("_", "\n");
+        return formatted;
     }
 }

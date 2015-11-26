@@ -42,6 +42,8 @@ public class ButtonAdapter extends BaseAdapter {
         button.setLayoutParams(new GridView.LayoutParams(250, 150));
         button.setPadding(8, 8, 8, 8);
         button.setText(fileSystemAudioManager.getAudioNameInPosition(position));
+        button.setLines(2);
+        button.setTextSize(10);
         button.setId(position);
         button.setOnClickListener(new OnButtonClickListener(context, fileSystemAudioManager.getAudionInPosition(position)));
         return button;
