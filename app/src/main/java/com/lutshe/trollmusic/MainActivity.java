@@ -17,6 +17,8 @@ public class MainActivity extends Activity {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new ButtonsGridFragment())
                     .commit();
+
+	        new MediaPlayersInstantiator(this).execute();
         }
     }
 

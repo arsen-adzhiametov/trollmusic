@@ -9,16 +9,16 @@ import com.lutshe.trollmusic.MediaPlayerManager;
  */
 public class OnButtonClickListener implements View.OnClickListener {
 
-    private String pathToAudio;
+    private int position;
     private Context context;
 
-    public OnButtonClickListener(Context context, String pathToAudio) {
+    public OnButtonClickListener(Context context, int position) {
         this.context = context;
-        this.pathToAudio = pathToAudio;
+        this.position = position;
     }
 
     @Override
     public void onClick(View v) {
-        MediaPlayerManager.getInstance(context).play(pathToAudio);
+        MediaPlayerManager.getInstance(context).play(position);
     }
 }

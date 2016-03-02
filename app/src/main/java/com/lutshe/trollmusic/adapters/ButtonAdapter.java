@@ -45,7 +45,7 @@ public class ButtonAdapter extends BaseAdapter {
         button.setLines(2);
         button.setTextSize(10);
         button.setId(position);
-        button.setOnClickListener(new OnButtonClickListener(context, fileSystemAudioManager.getAudionInPosition(position)));
+        button.setOnClickListener(new OnButtonClickListener(context, position));
         return button;
     }
 }

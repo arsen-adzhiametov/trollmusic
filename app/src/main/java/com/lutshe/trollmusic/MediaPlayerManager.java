@@ -13,10 +13,17 @@ public class MediaPlayerManager {
     private static MediaPlayerManager mediaPlayerManager;
 
     private Context context;
-    private MediaPlayer mp;
+	private FileSystemAudioManager fileSystemAudioManager;
+    private MediaPlayer mediaPlayers [];
+	private int activePlayerPosition;
 
-    private MediaPlayerManager(Context context){
+    private MediaPlayerManager(Context context) {
         this.context = context;
+	    fileSystemAudioManager = new FileSystemAudioManager();
+	    mediaPlayers = new MediaPlayer[fileSystemAudioManager.getAudioCount()];
+	    for (int i = 0; i < mediaPlayers.length; i++) {
+		    mediaPlayers[i] = createMediaPlayerForPosition(i);
+	    }
     }
 
     public static MediaPlayerManager getInstance(Context context) {
@@ -26,37 +33,34 @@ public class MediaPlayerManager {
         return mediaPlayerManager;
     }
 
-    public void play(String pathToAudio) {
-        if (mp != null && mp.isPlaying()) {
-            mp.stop();
-            mp.reset();
-            mp.release();
-            mp = null;
-        }
-        mp = new MediaPlayer();
-        try {
-            mp.setDataSource(pathToAudio);
-            mp.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.reset();
-                mp.release();
-                MediaPlayerManager.this.mp = null;
-            }
-        });
-        mp.start();
+    public void play(int position) {
+	    stop();
+	    MediaPlayer mp = mediaPlayers[position];
+	    try {
+		    mp.prepare();
+	    } catch (IOException e) {
+		    e.printStackTrace();
+	    }
+	    mp.seekTo(0);
+	    mp.start();
+	    activePlayerPosition = position;
+
     }
 
     public void stop() {
+	    MediaPlayer mp = mediaPlayers[activePlayerPosition];
         if (mp != null && mp.isPlaying()) {
             mp.stop();
-            mp.reset();
-            mp.release();
-            mp = null;
         }
     }
+
+	private MediaPlayer createMediaPlayerForPosition(int position) {
+		MediaPlayer mp = new MediaPlayer();
+		try {
+            mp.setDataSource(fileSystemAudioManager.getAudionInPosition(position));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mp;
+	}
 }
